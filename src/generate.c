@@ -1,6 +1,7 @@
 #include "generate.h"
 #include "util.h"
 #include <alpm.h>
+#include <math.h>
 #include <unistd.h>
 
 static void write_updates(FILE *file, const struct opts *opts) {
@@ -126,6 +127,11 @@ void generate_graph(pid_t fetch_pid, const struct opts *opts) {
             fprintf(file, "\"%s\" -> \"%s\" [%s];\n", (char *)_optionalfor->data, name,
                     opts->attributes.dependency.optional);
         }
+
+        off_t size = log10(alpm_pkg_get_isize(pkg));
+        double size_delta = 0.02;
+        fprintf(file, "\"%s\" [width=%lf, height=%lf];\n", name, size * size_delta,
+                size * size_delta);
 
         FREELIST(requiredby);
         FREELIST(optionalfor);
