@@ -82,6 +82,11 @@ struct opts parse_opts(int argc, char **argv) {
                 .optional = "arrowhead=empty, style=dashed",
             }
         },
+        .installed_size_representation = {
+            .enabled = 1,
+            .minimal = 0.03,
+            .delta = 0.01
+        },
         ._skip_fetch = 0,
         ._skip_generate = 0,
         ._skip_hook = 0

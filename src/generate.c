@@ -128,10 +128,14 @@ void generate_graph(pid_t fetch_pid, const struct opts *opts) {
                     opts->attributes.dependency.optional);
         }
 
-        off_t size = log10(alpm_pkg_get_isize(pkg));
-        double size_delta = 0.02;
-        fprintf(file, "\"%s\" [width=%lf, height=%lf];\n", name, size * size_delta,
-                size * size_delta);
+        /* Installed size representation */
+        if (opts->installed_size_representation.enabled) {
+            off_t size = log10(alpm_pkg_get_isize(pkg));
+            double width = size * opts->installed_size_representation.delta +
+                           opts->installed_size_representation.minimal;
+            double height = width;
+            fprintf(file, "\"%s\" [width=%lf, height=%lf];\n", name, width, height);
+        }
 
         FREELIST(requiredby);
         FREELIST(optionalfor);
