@@ -84,8 +84,8 @@ struct opts parse_opts(int argc, char **argv) {
         },
         .installed_size_representation = {
             .enabled = 1,
-            .minimal = 0.03,
-            .delta = 0.01
+            .minimal = 0.075,
+            .delta = 2e-5
         },
         ._skip_fetch = 0,
         ._skip_generate = 0,
