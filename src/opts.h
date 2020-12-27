@@ -33,10 +33,11 @@ struct opts {
         } dependency;
     } attributes;
     struct {
-        int enabled;
-        double minimal;
-        double delta;
-    } installed_size_representation;
+        struct {
+            int enabled;
+            double delta;
+        } installed_size;
+    } features;
     int _skip_fetch;
     int _skip_generate;
     int _skip_hook;

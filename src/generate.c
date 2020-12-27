@@ -129,12 +129,9 @@ void generate_graph(pid_t fetch_pid, const struct opts *opts) {
         }
 
         /* Installed size representation */
-        if (opts->installed_size_representation.enabled) {
-            double size = sqrt(alpm_pkg_get_isize(pkg)) *
-                          opts->installed_size_representation.delta;
-            if (size < opts->installed_size_representation.minimal) {
-                size = opts->installed_size_representation.minimal;
-            }
+        if (opts->features.installed_size.enabled) {
+            double size =
+                sqrt(alpm_pkg_get_isize(pkg)) * opts->features.installed_size.delta;
             fprintf(file, "\"%s\" [width=%lf, height=%lf];\n", name, size, size);
         }
 

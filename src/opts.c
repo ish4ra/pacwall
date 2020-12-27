@@ -82,10 +82,11 @@ struct opts parse_opts(int argc, char **argv) {
                 .optional = "arrowhead=empty, style=dashed",
             }
         },
-        .installed_size_representation = {
-            .enabled = 1,
-            .minimal = 0.075,
-            .delta = 2e-5
+        .features = {
+            .installed_size = {
+                .enabled = 1,
+                .delta = 2e-5
+            }
         },
         ._skip_fetch = 0,
         ._skip_generate = 0,
@@ -158,6 +159,12 @@ struct opts parse_opts(int argc, char **argv) {
         opts.attributes.package.repository.entries[4].attributes =
             "color=\"#859900aa\"";
     }
+
+    /* Parsing the features group */
+    config_lookup_bool(&cfg, "features.installed-size.enabled",
+                       &opts.features.installed_size.enabled);
+    config_lookup_float(&cfg, "features.installed-size.delta",
+                        &opts.features.installed_size.delta);
 
     config_destroy(&cfg);
 
